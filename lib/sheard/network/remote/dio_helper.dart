@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class DioHelper{
 
   static  Dio? dio;
-  static init(){
+   static init(){
     dio = Dio(
       BaseOptions(
           baseUrl: 'https://api.open-meteo.com/',

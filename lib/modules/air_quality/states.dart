@@ -11,3 +11,9 @@ class AirQualityErrorStates extends AirQualityStates{
 
   AirQualityErrorStates(this.error);
 }
+
+class ToggleBarSuccessesStates extends AirQualityStates{}
+
+class IndexForHoursLoadingStates extends AirQualityStates{}
+
+class IndexForHoursSuccessStates extends AirQualityStates{}

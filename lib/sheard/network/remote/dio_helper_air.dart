@@ -9,13 +9,13 @@ class DioHelperAir
   {
     dio = Dio(
     BaseOptions(
-        baseUrl : 'air-quality-api.open-meteo.com/',
+        baseUrl : 'https://air-quality-api.open-meteo.com/',
         receiveDataWhenStatusError: true
       ),
     );
   }
 
-  static Future<Response> getDataAir({
+/*  static Future<Response> getDataAir({
 
   required String url,
     required Map<String, dynamic> query,
@@ -27,6 +27,6 @@ class DioHelperAir
       print('this is error Air$e');
       rethrow;
     }
-  }
+  }*/
 
 }

@@ -16,6 +16,10 @@ class ChiangTemperatureSuccessStates extends WeatherStates{}
 
 class SelectColorSuccessStates extends WeatherStates{}
 
-class ToggleBarSuccessesStates extends WeatherStates{}
+class GetCoordinatesLoadingStates extends WeatherStates{}
 
+class GetCoordinatesSuccessStates extends WeatherStates{}
 
+class GetImageLoadingStates extends WeatherStates{}
+
+class GetImageSuccessStates extends WeatherStates{}

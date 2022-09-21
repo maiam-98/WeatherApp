@@ -1,11 +1,11 @@
 class AirQualityModel
 {
-  dynamic latitude;
-  dynamic longitude;
-  dynamic generationtime_ms;
-  dynamic utc_offset_seconds;
-  dynamic timezone;
-  dynamic timezone_abbreviation;
+  double? latitude;
+  double? longitude;
+  double? generationtime_ms;
+  int? utc_offset_seconds;
+  String? timezone;
+  String? timezone_abbreviation;
  HourlyUnits? hourly_units;
  Hourly? hourly;
 
@@ -43,11 +43,11 @@ class HourlyUnits
 
 class Hourly
 {
-  List<dynamic>? time;
-  List<dynamic>? pm10;
-  List<dynamic>? pm2_5;
-  List<dynamic>? ozone;
-  List<dynamic>? uv_index;
+  List<dynamic>? time = [];
+  List<dynamic>? pm10 = [];
+  List<dynamic>? pm2_5 = [];
+  List<dynamic>? ozone = [];
+  List<dynamic>? uv_index = [];
 
 
   Hourly.fromJson(Map<String, dynamic>json)
@@ -57,14 +57,14 @@ class Hourly
     });
 
     json['pm10'].forEach((element){
-      pm2_5?.add(element);
+      pm10?.add(element);
     });
 
     json['pm2_5'].forEach((element){
       pm2_5?.add(element);
     });
 
-    json['ozone'].forEacn((element){
+    json['ozone'].forEach((element){
       ozone?.add(element);
     });
 
