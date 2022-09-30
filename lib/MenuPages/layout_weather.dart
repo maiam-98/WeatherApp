@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_zoom_drawer/config.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
-import 'package:my_apps/modules/MenuPage.dart';
+import 'package:my_apps/MenuPages/MenuPage.dart';
 import 'package:my_apps/modules/about_app.dart';
 import 'package:my_apps/modules/about_us.dart';
 import 'package:my_apps/modules/report.dart';
@@ -20,11 +20,10 @@ class _LayoutScreenState extends State<LayoutScreen> {
 
   @override
   Widget build(BuildContext context) => ZoomDrawer (
-    style: DrawerStyle.defaultStyle,
     mainScreenScale: 0.2,
     borderRadius: 40,
     angle: -1,
-    menuScreenWidth: 400.0,
+    menuScreenWidth: double.infinity,
     slideWidth: MediaQuery.of(context).size.width * 0.5,
     mainScreen:  getScreen(),
     menuScreen:  Builder(

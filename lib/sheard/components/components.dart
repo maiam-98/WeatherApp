@@ -10,26 +10,37 @@ import 'constants.dart';
 var cubit = WeatherCubit();
 var models = cubit.model;
 dynamic counter = cubit.index;
+DateTime now = DateTime.now();
+var day = DateFormat('yyyy-MM-dd');
+String dateToday = day.format(now);
+
 Widget builderWeeklyForecastItem(
     {
       dynamic index,
-      required Color color,
       required String text,
       required String textIf,
       required dynamic ifForTextTime,
       required dynamic ifForTextTemp,
       required String? dateToday,
       required Color? colorOfAir,
+      required List<Color> colors,
       required String? testOfAir,
 }) => Container(
       //height: 200.0,
       width: 65.0,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: color,
-
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+           stops: const [
+            0.3,
+            1
+          ],
+          colors: colors,
+        ),
       ),
-      child: Padding(
+    child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
@@ -56,19 +67,18 @@ Widget builderWeeklyForecastItem(
             if(textIf == WeatherCubit().month?[index])...[
               Text(
               '$ifForTextTime'.substring(6,7),
-              style:  TextStyle(
+              style:const TextStyle(
                 fontSize: 15.0,
                 fontWeight: FontWeight.w400,
-                color:ifForTextTime == dateToday ?  Colors.white : Colors.black ,
               ),
             ),
             ]else...[
               Text(
-                '$ifForTextTime'.substring(6),
+                '$ifForTextTime'.substring(5),
                 style:  TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w400,
-                  color:ifForTextTime == dateToday ? Colors.white : Colors.black ,
+                  color:ifForTextTime == dateToday ? Colors.white : const Color.fromRGBO(158, 153, 153, 1) ,
                 ),
               ),
             ],

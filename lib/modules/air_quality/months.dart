@@ -12,6 +12,7 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../sheard/components/components.dart';
 import '../weather_screen/cubit/cubit.dart';
 import '../weather_screen/weather_screen.dart';
+import 'dart:math';
 
 class MonthScreen extends StatelessWidget {
   const MonthScreen({Key? key}) : super(key: key);
@@ -124,19 +125,27 @@ class MonthScreen extends StatelessWidget {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            LayoutBuilder(
-                              builder: (BuildContext context, BoxConstraints constraints) =>
                                   Center(
                                     child: Container(
-                                      width: 250,
+                                      width: 240,
                                       height: 50,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50.0),
-                                        color: const Color.fromRGBO(37, 109, 133, 1),
+                                        gradient:const LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          stops: [
+                                            0.0,
+                                            1
+                                          ],
+                                          colors:[
+                                            Color.fromRGBO(182, 99, 233, 1),
+                                            Color.fromRGBO(98, 99, 235, 1),
+                                          ],
+                                        ),
                                       ),
                                       child: Center(
                                         child: ToggleButtons(
-                                          constraints: BoxConstraints.expand(width: constraints.maxWidth/3),
                                           isSelected: isSelected,
                                           fillColor: Colors.white,
                                           selectedColor: Colors.black,
@@ -145,7 +154,9 @@ class MonthScreen extends StatelessWidget {
                                           renderBorder: false,
                                           children: const <Widget>[
                                             Padding(
-                                              padding: EdgeInsets.all(10.0),
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 40.0
+                                              ),
                                               child: Text(
                                                 'Day',
                                                 style: TextStyle(
@@ -154,11 +165,16 @@ class MonthScreen extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              'Month',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20.0,
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 30.0
+                                              ),
+                                              child: Text(
+                                                'Month',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20.0,
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -172,7 +188,7 @@ class MonthScreen extends StatelessWidget {
                                     ),
                                   ),
 
-                            ),
+
                             const SizedBox(
                               height: 30.0,
                             ),
@@ -191,8 +207,16 @@ class MonthScreen extends StatelessWidget {
                                         text: 'Today',
                                         ifForTextTime: modelsForWeather?.daily?.time?[index],
                                         ifForTextTemp: models?.hourly?.pm2_5?[index],
-                                        textIf: WeatherCubit.get(context).days![index].substring(0,3),
-                                        color: modelsForWeather?.daily?.time?[index] == dateToday ? const Color.fromRGBO(37, 109, 133, 1) :  Colors.white,
+                                        textIf: WeatherCubit().days![index].substring(0,3),
+                                          colors: modelsForWeather?.daily?.time?[index] == dateToday ?
+                                          const[
+                                            Color.fromRGBO(182, 99, 233, 1),
+                                            Color.fromRGBO(98, 99, 235, 1),
+                                          ] :
+                                          const [
+                                            Color.fromRGBO(255, 255, 255, 1),
+                                            Color.fromRGBO(255, 255, 255, 1),
+                                          ]
                                       ),
                                       separatorBuilder: (context, index) =>const SizedBox(
                                         width: 30.0,
@@ -208,12 +232,20 @@ class MonthScreen extends StatelessWidget {
                                         testOfAir: '${cubit.resultAQI}',
                                         colorOfAir: cubit.getColors(cubit.resultAQI),
                                         index: index,
-                                        dateToday: dateToday,
                                         text: 'Sep',
+                                        dateToday: dateToday,
                                         ifForTextTime: models?.hourly?.time?[index],
                                         ifForTextTemp: models?.hourly?.uv_index?[index],
-                                        textIf: WeatherCubit.get(context).month![index].substring(0,3),
-                                        color: modelsForWeather?.daily?.time?[index] == dateToday ? const Color.fromRGBO(37, 109, 133, 1) :  Colors.white,
+                                        textIf: WeatherCubit().month![index].substring(0,3),
+                                          colors: modelsForWeather?.daily?.time?[index] == dateToday ?
+                                          const[
+                                            Color.fromRGBO(182, 99, 233, 1),
+                                            Color.fromRGBO(98, 99, 235, 1),
+                                          ] :
+                                          const [
+                                            Color.fromRGBO(255, 255, 255, 1),
+                                            Color.fromRGBO(255, 255, 255, 1),
+                                          ]
                                       ),
                                       separatorBuilder: (context, index) =>const SizedBox(
                                         width: 30.0,
@@ -258,7 +290,7 @@ class MonthScreen extends StatelessWidget {
                             startValue: 0,
                             endValue: 500,
                             startWidth: 18,
-                            color: Colors.grey,
+                            color: Colors.white,
                             endWidth: 18,
                           )
                         ],
@@ -267,35 +299,63 @@ class MonthScreen extends StatelessWidget {
                             value: cubit.formulaAQI(pm2)!.toDouble(),
                             cornerStyle: CornerStyle.bothCurve,
                             width: 18,
-                            color: const Color.fromRGBO(37, 109, 133, 1),
+                            gradient: const SweepGradient(
+                              startAngle: 1.0,
+                              endAngle: 1.0,
+                              colors: [
+                                Color.fromRGBO(182, 99, 233, 1),
+                                Color.fromRGBO(98, 99, 235, 1),
+                              ],
+                            ),
                           ),
                           NeedlePointer(
                             value: cubit.formulaAQI(pm2)!.toDouble(),
                             needleStartWidth: 1.5,
                             needleEndWidth: 1.5,
-                            needleColor: const  Color.fromRGBO(37, 109, 133, 1),
+                            gradient:const LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              stops: [
+                                0.1,
+                                1.0
+                              ],
+                              colors:[
+                                Color.fromRGBO(182, 99, 233, 1),
+                                Color.fromRGBO(98, 99, 235, 1),
+                              ],
+                            ),
                             knobStyle: const  KnobStyle(
-                              borderColor: Color.fromRGBO(37, 109, 133, 1),
+                              borderColor: Color.fromRGBO(182, 99, 233, 1),
                               borderWidth: 0.03,
                               color: Colors.white,
                             ),
                             tailStyle: const TailStyle(
                                 width: 1.5,
                                 length: 0.2,
-                                color: Color.fromRGBO(37, 109, 133, 1)
+                              gradient: LinearGradient(
+                                stops: [
+                                  0.1,
+                                  1.0
+                                ],
+                                colors:[
+                                  Color.fromRGBO(182, 99, 233, 1),
+                                  Color.fromRGBO(98, 99, 235, 1),
+                                ],
+                              ),
 
                             ),
                           ),
                         ],
                         annotations: <GaugeAnnotation>[
                           GaugeAnnotation(widget:
-                          Column(
+                            Column(
                             children: [
                               const Text(
                                 'AQI',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20.0,
+                                  color: Color.fromRGBO(182, 99, 233, 1)
                                 ),
                               ),
                                 Text(
@@ -345,7 +405,18 @@ class MonthScreen extends StatelessWidget {
                                       width: 50,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(20.0),
-                                        color: const Color.fromRGBO(37, 109, 133, 1),
+                                        gradient:const LinearGradient(
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                          stops: [
+                                            0.3,
+                                            1
+                                          ],
+                                          colors:[
+                                            Color.fromRGBO(182, 99, 233, 1),
+                                            Color.fromRGBO(98, 99, 235, 1),
+                                          ],
+                                        ),
                                       ),
                                       child: const Icon(
                                         Icons.keyboard_arrow_down,
@@ -403,44 +474,55 @@ class MonthScreen extends StatelessWidget {
                       width: 350,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: const Color.fromRGBO(37, 109, 133, 1),
+                        gradient:const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [
+                            0.3,
+                            1
+                          ],
+                          colors:[
+                            Color.fromRGBO(182, 99, 233, 1),
+                            Color.fromRGBO(98, 99, 235, 1),
+                          ],
+                        ),
                       ),
                       child: Row(
-                        children: const[
-                          Padding(
+                        children: [
+                          const Padding(
                             padding: EdgeInsets.all(10.0),
                             child: CircleAvatar(
                               backgroundColor: Colors.white,
                               radius: 25.0,
                               child: Icon(
                                 Icons.highlight_off_sharp,
-                                color: Color.fromRGBO(37, 109, 133, 1),
+                                color: Color.fromRGBO(182, 99, 233, 1),
                                 size: 35,
                               ),
                             ),
                           ),
-                          Text(
+                          const Text(
                             'City air quality ranking',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 35.0,
                           ),
                           Text(
-                            'No.531',
-                            style: TextStyle(
-                                color: Colors.black,
+                            'No.${cubit.resultAQI}',
+                            style:const TextStyle(
+                                color: Colors.white,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w500
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.chevron_right,
-                            color: Colors.black,
+                            color: Colors.white,
                             size: 25,
                           ),
                         ],

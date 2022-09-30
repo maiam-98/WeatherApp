@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../MenuWidget.dart';
+import '../MenuPages/MenuWidget.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({Key? key}) : super(key: key);
